@@ -52,50 +52,97 @@ ggplot(plastic_waste, aes(x = plastic_waste_per_cap,
     fill = "contient")
 ```
 
-Le réglage de la couleur et celui de la transparence ne se trouve pas au même endroit car, lorsque nous écrivons dans aes ont est directement lié au donné du problème. Lorsqu'on est dans geom_density () on est directement lié aux valeurs constantes du problème.Ce qui veux dire  qu'elle s'appliquera à toute les données du problème.
+Le réglage de la couleur et celui de la transparence ne se trouve pas au même endroit car, lorsque nous écrivons dans aes ont est directement lié au donné du problème. Lorsqu'on est dans geom_density () on est directement lié aux valeurs constantes du problème.Ce qui veux dire  qu'elle s'appliquera à toute les données du problème et qu'elle ne dépend pas d'une variable dans les données.
 
 ### Exercise 3
 
 Boxplot:
 
 ```{r plastic-waste-boxplot}
-# insert code here
+ggplot(plastic_waste, aes(x = continent,
+                          y = plastic_waste_per_cap)) +
+  geom_boxplot() +
+  labs(
+    x = "continent",
+    y = "plastic_waste_per_cap"
+  )
 ```
 
 Violin plot:
 
 ```{r plastic-waste-violin}
-# insert code here
+ggplot(plastic_waste, aes(x = continent,
+                          y = plastic_waste_per_cap)) +
+  geom_violin() +
+  labs(
+    x = "continent",
+    y = "plastic_waste_per_cap"
+  )
 ```
 
-Réponse à la question...
+Avec les violin plot, il est possible de voir la présence de plusieurs pics distincts ce que le boxplot n'offre pas, il montre seulement la plus prononcée qui s'avère à être la médiane. De plus, il est possible de voir la forme de la distribution sans nécessairement être représenté en carré.
 
 ### Exercise 4
 
 
 ```{r plastic-waste-mismanaged}
-# insert code here
-```
+ggplot(plastic_waste, aes(x = mismanaged_plastic_waste_per_cap,
+                          y = mismanaged_plastic_waste,
+                          color = continent)) +
+  geom_point() +
+  labs(
+    x = "mismanaged_plastic_waste_per_cap",
+    y = "mismanaged_plastic_waste"
+  )
 
-Réponse à la question...
+```
+Selon le graphique nous pouvons remarqués que le continent(Asie) ayant la plus grande population crée plus de déchet mais que ceux comme l'amérique du sud et du nord produisent plus de déchet par habitant vue que ceux-ci sont moins nombreux et qu'ils sont des continents ayant plus de ressources.
 
 ### Exercise 5
 
 
 ```{r plastic-waste-population-total}
-# insert code here
+ggplot(plastic_waste, aes(x = plastic_waste_per_cap,
+                          y = total_pop)) +
+  geom_point() +
+  labs(
+    x = "plastic_waste_per_cap",
+    y = "total_pop"
+      
+  )
 ```
 
 ```{r plastic-waste-population-coastal}
-# insert code here
+
+ggplot(plastic_waste, aes(x = plastic_waste_per_cap,
+                          y = coastal_pop)) +
+  geom_point() +
+  labs(
+    x = "plastic_waste_per_cap",
+    y = "coastal_pop")
 ```
 
-Réponse à la question...
+Sur la Côte, la population semble plus grande à certain endroit mais ceci fait en sorte que les gens on l'air de moins gaspiller de déchet vue qu'ils sont plus, comparativement à la poulation total ne vivant pas sur la côte.Le ratio n'est donc pas pareil. 
 
 ## Conclusion
 
 Recréez la visualisation:
 
 ```{r recreate-viz}
-# insert code here
+
+plastic_waste_coastal <- plastic_waste %>% 
+  mutate(coastal_pop_prop = coastal_pop / total_pop) %>%
+  filter(plastic_waste_per_cap < 3)
+
+ggplot(plastic_waste, aes(x = coastal_pop_prop,
+                          y = plastic_waste_per_cap,
+                          color = continent)) +
+  geom_point() +
+  geom_density()+
+  labs(
+    x = "Proportion de la population côtière (Coastal/ total population)",
+    y = "Nombre de déchets plastiques par habitant",
+    title = "Quantité de déchets plastiques vs Proportion de la population côtière",
+    subtitle = "Selon le continent"
+  )
 ```
