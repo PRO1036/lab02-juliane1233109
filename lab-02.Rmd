@@ -1,7 +1,7 @@
 ---
 title: "Lab 02 - Plastic waste"
-author: "Votre nom"
-date: "La date"
+author: "Juliane Champagne"
+date: "2025-09-17"
 output: github_document
 ---
 
@@ -20,6 +20,7 @@ Commençons par filtrer les données pour retirer le point représenté par Trin
 ```{r filter-data, message=FALSE}
 plastic_waste <- plastic_waste %>%
   filter(plastic_waste_per_cap < 3.5)
+
 ```
 
 
@@ -28,16 +29,30 @@ plastic_waste <- plastic_waste %>%
 ### Exercise 1
 
 ```{r plastic-waste-continent}
-# insert code here
+ggplot(plastic_waste, aes(x = plastic_waste_per_cap)) +
+  geom_histogram(binwidth = 0.25) +
+  labs(
+    x = "plastic_waste_per_cap",
+    y = "count") +
+  facet_wrap(~ continent, nrow = 2)
+
 ```
 
 ### Exercise 2
 
 ```{r plastic-waste-density}
-# insert code here
+ggplot(plastic_waste, aes(x = plastic_waste_per_cap,
+                          fill = continent,
+                          color = continent)) +
+  geom_density(adjust = 1,
+               alpha = 0.3) +
+  labs(
+    x = "plastic_waste_per_cap", 
+    y = "density",
+    fill = "contient")
 ```
 
-Réponse à la question...
+Le réglage de la couleur et celui de la transparence ne se trouve pas au même endroit car, lorsque nous écrivons dans aes ont est directement lié au donné du problème. Lorsqu'on est dans geom_density () on est directement lié aux valeurs constantes du problème.Ce qui veux dire  qu'elle s'appliquera à toute les données du problème.
 
 ### Exercise 3
 
