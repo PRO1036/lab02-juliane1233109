@@ -162,7 +162,7 @@ ggplot(plastic_waste, aes(x = coastal_pop/ total_pop,
                           y = plastic_waste_per_cap,
                           color = continent)) +
   geom_point()  +
-  geom_smooth() +
+  geom_smooth(aes(group = 1), method = "loess", color = "black", se = TRUE) +
   labs(
     x = "Proportion de la population côtière (Coastal/ total population)",
     y = "Nombre de déchets plastiques par habitant",
@@ -170,7 +170,7 @@ ggplot(plastic_waste, aes(x = coastal_pop/ total_pop,
     subtitle = "Selon le continent" )
 ```
 
-    ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+    ## `geom_smooth()` using formula = 'y ~ x'
 
     ## Warning: Removed 10 rows containing non-finite outside the scale range
     ## (`stat_smooth()`).

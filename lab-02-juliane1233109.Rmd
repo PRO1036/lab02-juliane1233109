@@ -149,12 +149,13 @@ ggplot(plastic_waste, aes(x = coastal_pop/ total_pop,
                           y = plastic_waste_per_cap,
                           color = continent)) +
   geom_point()  +
-  geom_smooth() +
+  geom_smooth(aes(group = 1), method = "loess", color = "black", se = TRUE) +
   labs(
     x = "Proportion de la population côtière (Coastal/ total population)",
     y = "Nombre de déchets plastiques par habitant",
     title = "Quantité de déchets plastiques vs Proportion de la population côtière",
     subtitle = "Selon le continent" )
+    
     
 plastic_waste_coastal <- plastic_waste %>% 
   mutate(coastal_pop_prop = coastal_pop / total_pop) %>%
