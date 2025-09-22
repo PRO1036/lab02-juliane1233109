@@ -8,17 +8,20 @@ output: github_document
 ## Chargement des packages et des données
 
 ```{r load-packages, message=FALSE}
+
 library(tidyverse) 
 ```
 
 ```{r load-data, message=FALSE}
+
 plastic_waste <- read_csv("data/plastic-waste.csv")
 ```
 
 Commençons par filtrer les données pour retirer le point représenté par Trinité et Tobago (TTO) qui est un outlier.
 
 ```{r filter-data, message=FALSE}
-plastic_waste <- plastic_waste %>%
+
+plastic_waste <- plastic_waste %>% 
   filter(plastic_waste_per_cap < 3.5)
 
 ```
