@@ -10,13 +10,14 @@ output: github_document
 ```{r load-packages, message=FALSE}
 
 library(tidyverse) 
-view(plastic_waste) 
+
 
 ```
 
 ```{r load-data, message=FALSE}
 
 plastic_waste <- read_csv("data/plastic-waste.csv")
+View(plastic_waste)
 
 ```
 
